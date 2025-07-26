@@ -1,6 +1,4 @@
-use eframe::*;
-use egui::CentralPanel;
-use egui::Ui;
+use eframe::egui;
 
 #[derive(PartialEq)]
 enum Operation {
@@ -36,11 +34,10 @@ fn operate(x: &f32, operand: &Operation, y: &f32) -> f32 {
     }
 }
 
-pub struct Grid {}
 
 impl eframe::App for MyApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut Frame) {
-        CentralPanel::default().show(ctx, |ui: &mut Ui| {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        egui::CentralPanel::default().show(ctx, |ui: &mut egui::Ui| {
             ui.label(&self.display_var);
             egui::Grid::new("button").show(ui, |ui| {
                 if ui.button("AC").clicked() {
@@ -341,10 +338,14 @@ impl eframe::App for MyApp {
 }
 
 fn main() -> eframe::Result<()> {
-    run_native(
-        "My App",
-        NativeOptions::default(),
-        Box::new(|_cc: &CreationContext<'_>| {
+    let options = eframe::NativeOptions{
+        viewport: egui::ViewportBuilder::default().with_inner_size([175.0, 137.0]),
+        ..Default::default()
+    };
+    eframe::run_native(
+        "Mein Kalkulator",
+        options,
+        Box::new(|_cc: &eframe::CreationContext<'_>| {
             Ok(Box::new(MyApp {current_var: 0.0, new_var: 0.0, display_var: String::from("0"), operation: Operation::NON, reset: false}))
         })
     )
