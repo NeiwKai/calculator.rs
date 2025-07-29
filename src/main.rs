@@ -48,10 +48,12 @@ impl eframe::App for MyApp {
                     self.reset = false;
                 }
                 if ui.button("+/-").clicked() && self.display_var != "0" {
-                    if self.display_var.chars().nth(0) != Some('-') {
-                        self.display_var = format!("-{}", self.display_var); 
+                    if self.operation != Operation::NON {
+                        self.new_var *= -1.0;
+                        self.display_var = self.new_var.to_string();
                     } else {
-                        self.display_var.remove(0); 
+                        self.current_var *= -1.0;
+                        self.display_var = self.current_var.to_string();
                     }
                 }
                 if ui.button("%").clicked() {
