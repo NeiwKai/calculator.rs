@@ -1,7 +1,10 @@
 [package]
 name = "calculator_rs"
 version = "0.1.0"
+authors = ["Suppanat Timngarm <NeiwKai>"]
 edition = "2024"
+description = "A simple calculator written in rust with egui"
+repository = "https://github.com/NeiwKai/calculator_rs"
 
 [dependencies]
 eframe = "*"
